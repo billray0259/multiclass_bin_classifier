@@ -14,6 +14,7 @@ Because each sample is labeled a label can be placed on the bucket based on whic
 During inference, the model maps a new sample to a bucket and classifies the sample with the label associated with the bucket.
 
 ## Inspiration
+Inspired by a conversation with [Cooper](https://github.com/coopersigrist)
 The inspiration behind this approach is to view each output activation (I'll call them nodes) as a binary classifier that is hopefully classifying the samples on some meaningful boolean characteristic.
 For example, one node may classify samples based on if the have loops (like a 9, 8, or 0), another node may activate only if the sample has a vertical line, (like a 1 or 7) and so on.
 Then by classes of samples can be constructed by grouping samples with shared characteristics.
