@@ -17,9 +17,13 @@ During inference, the model maps a new sample to a bucket and classifies the sam
 Inspired by a conversation with [Cooper](https://github.com/coopersigrist)
 
 The inspiration behind this approach is to view each output activation (I'll call them nodes) as a binary classifier that is hopefully classifying the samples on some meaningful boolean characteristic.
+
 For example, one node may classify samples based on if the have loops (like a 9, 8, or 0), another node may activate only if the sample has a vertical line, (like a 1 or 7) and so on.
+
 Then by classes of samples can be constructed by grouping samples with shared characteristics.
+
 Ex: Perhaps most 8's have loops, but no vertical lines so they may fall into bucket 1 0. 4's with their loop and vertical line may be assigned bucket 1 1, and 2's with neither might go to 0 0.
+
 If these binary classes can be learned unsupervised, then it is possible to cluster samples into these binary buckets unsupervised.
 
 ## Failure Modes
