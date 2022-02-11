@@ -13,6 +13,14 @@ Because each sample is labeled a label can be placed on the bucket based on whic
 
 During inference, the model maps a new sample to a bucket and classifies the sample with the label associated with the bucket.
 
+<p align="center">
+  <img src="16_buckets.png" width="600" title="Buckets before and after training">
+</p>
+
+
+
+Figure: Buckets before and after training where `n_out = 4`. Each row is a single bucket, and each column shows the distribution of an MNIST class over the buckets. Ideally each bucket/row would be a one-hot vector, similar to row 3. For the most part only images portraying a hand-written 5 get mapped to row 3. If during inference a new sample gets mapped to row 3 the label for that sample is likely 5. 
+
 ## Inspiration
 Inspired by a conversation with [Cooper](https://github.com/coopersigrist)
 
