@@ -1,0 +1,33 @@
+project: multiclass_bin_classifier
+program: wandb_sweeper.py
+method: random
+metric:
+  name: validation_accuracy
+  goal: maximize
+parameters:
+  cov_weight:
+    min: 0.0
+    max: 1.0
+  center_weight:
+    min: 0.0
+    max: 1.0
+  mag_weight:
+    min: 0.0
+    max: 1.0
+  n_out:
+    min: 3
+    max: 10
+  n_layers:
+    min: 0
+    max: 8
+  hidden_size:
+    min: 16
+    max: 128
+  activation:
+    values: ["relu", "tanh", "leaky_relu", "sigmoid"]
+  epochs:
+    min: 1
+    max: 15
+  batch_size:
+    min: 4
+    max: 256
