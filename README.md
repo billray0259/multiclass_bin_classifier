@@ -77,6 +77,13 @@ I have used [Weights and Biases](https://wandb.ai/bill-ray0259/multiclass_bin_cl
 
 I found that the model performs best when the magnitude loss is weighted less than the other two losses.
 
-The model is able to classify MNIST digits significantly better than random [(maximum accuracy ~60%)](https://wandb.ai/bill-ray0259/multiclass_bin_classifier/runs/2s1har4p/overview?workspace=user-bill-ray0259), but is still far behind the performance of even a simple linear regression model trained with the labeled samples.
+<p align="center">
+  <img src="weight_sweep_chart.png" title="Weight sweep chart">
+</p>
+
+[Interactive Weights and Biases figure](href="https://wandb.ai/bill-ray0259/multiclass_bin_classifier/reports/Shared-panel-22-02-12-12-02-67--VmlldzoxNTU0MDcy")
+
+  
+The model is able to classify MNIST digits significantly better than random [(maximum accuracy 63%)](https://wandb.ai/bill-ray0259/multiclass_bin_classifier/runs/a3222kcy/overview), but is still far behind the performance of even a simple linear regression model trained with the labeled samples.
 
 Accuracy doesn't appear to improve much with additional training. I would be excited to hear any ideas you may have to improve what I've done here!
