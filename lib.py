@@ -15,33 +15,30 @@ def multi_binary_mlp(hidden_sizes, n_out, activation="relu"):
     return model
 
 
-# Custom loss function
-# minimize the magnitude of the covariance over the predictions
 def multiclass_loss(cov_weight=1, center_weight=1, mag_weight=1):
     def loss(y_true, y_pred):
         # Calculate the covariance matrix
         # https://stackoverflow.com/questions/47709854/how-to-get-covariance-matrix-in-tensorflow
-        x = y_pred
-        mean_x = K.mean(x, axis=0, keepdims=True)
-        mx = K.transpose(mean_x) @ mean_x
-        vx = (K.transpose(x) @ x)/K.cast(K.shape(x)[0], dtype="float32")
-        cov_xx = vx - mx
+        activations = y_pred
+        mean_activation = K.mean(activations, axis=0, keepdims=True)
+        mx = K.transpose(mean_activation) @ mean_activation
+        vx = (K.transpose(activations) @ activations)/K.cast(K.shape(activations)[0], dtype="float32")
+        activation_cov = vx - mx
         # set the diagonal to zero
-        cov_xx = tf.linalg.set_diag(cov_xx, tf.zeros_like(tf.linalg.diag_part(cov_xx)))
+        activation_cov = tf.linalg.set_diag(activation_cov, tf.zeros_like(tf.linalg.diag_part(activation_cov)))
 
-        cov_loss = K.mean(K.abs(cov_xx)) # Optimal at 0
+        cov_loss = K.mean(K.abs(activation_cov)) # Optimal at 0
 
         # Calculate the magnitude of the average prediction
-        center_loss = K.abs(mean_x) # Optimal at 0
+        center_loss = K.abs(mean_activation) # Optimal at 0
 
         # Calculate the average magnitude of the predictions
-        mag_loss = K.mean(K.abs(x)) # Optimal at 1
+        mag_loss = -K.mean(K.abs(activations)) # Optimal at -1
 
         # Calculate the loss
-        return cov_weight*cov_loss + center_weight*center_loss - mag_weight*mag_loss + mag_weight
+        return cov_weight*cov_loss + center_weight*center_loss + mag_weight*mag_loss + mag_weight
         
     return loss
-
 
 def load_mnist():
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
